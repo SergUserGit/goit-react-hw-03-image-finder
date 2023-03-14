@@ -1,4 +1,5 @@
 import css from './Modal.module.css';
+import PropTypes from 'prop-types';
 
 const Modal = function ({ srcModal, altModal }) {
   return (
@@ -8,6 +9,11 @@ const Modal = function ({ srcModal, altModal }) {
       </div>
     </div>
   );
+};
+
+Modal.propTypes = {
+  srcModal: PropTypes.string,
+  altModal: PropTypes.string,
 };
 
 export default Modal;

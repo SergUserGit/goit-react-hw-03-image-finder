@@ -1,6 +1,7 @@
 import css from './ImageGalleryItem.module.css';
 import Modal from 'components/Modal/Modal';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ImageGalleryItem extends Component {
   state = { imageOpen: false };
@@ -31,5 +32,11 @@ class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  imgSrc: PropTypes.string,
+  imgAlt: PropTypes.string,
+  imgAltBig: PropTypes.string,
+};
 
 export default ImageGalleryItem;
