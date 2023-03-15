@@ -30,7 +30,7 @@ class App extends Component {
   };
 
   initDate = data => {
-    this.state.page = 1;
+    // this.state.page = 1;
     this.setState({ imageArray: [] });
     this.setState({ searchKey: data.imageName });
   };
