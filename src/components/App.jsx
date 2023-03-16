@@ -8,11 +8,12 @@ class App extends Component {
   state = {
     imageArray: [],
     loadStatus: false,
-    page: 1,
     searchKey: '',
     dataFilled: false,
     countOfPagePagination: 12,
   };
+
+  page = 1;
 
   getApi = (imageName, pageNumber) => {
     return (
@@ -30,13 +31,11 @@ class App extends Component {
   };
 
   initDate = data => {
-    // this.state.page = 1;
     this.setState({ imageArray: [] });
     this.setState({ searchKey: data.imageName });
   };
 
   setValues = (data, loadMore) => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
     if (loadMore) {
       this.setState(prevState => ({
         imageArray: [...prevState.imageArray, ...data.hits],
@@ -45,13 +44,15 @@ class App extends Component {
       this.setState({ imageArray: data.hits });
     }
     this.setState({
-      dataFilled: this.getOtherImageCount(data.totalHits, this.state.page),
+      dataFilled: this.getOtherImageCount(data.totalHits, this.page),
     });
   };
 
   processData = (imageName, loadMore) => {
     this.setState({ loadStatus: true });
-    const URL = this.getApi(imageName, this.state.page);
+
+    const URL = this.getApi(imageName, this.page);
+
     fetch(URL)
       .then(response => {
         if (response.ok) {
@@ -69,12 +70,14 @@ class App extends Component {
   };
 
   formSubmitHandler = data => {
+    this.page = 1;
     this.initDate(data);
     this.processData(data.imageName, false);
   };
 
   buttonLoadClick = data => {
     if (this.state.searchKey.trim() !== '') {
+      this.page += 1;
       this.processData(this.state.searchKey, true);
     }
   };
